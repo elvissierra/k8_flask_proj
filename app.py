@@ -43,3 +43,28 @@ def get_items():
         del item.__dict__["_sa_instance_state"]
         item.append(item.__dict__)
     return jsonify(items)
+
+
+@app.route("/items", methods=["POST"])
+def create_item():
+    body = request.get_json()
+    db.session.add(Item(body["title"], body["content"]))
+    db.session.commit()
+    return "item created"
+
+
+@app.route("/items/<id>", methods=["PUT"])
+def update_item(id):
+    body = request.get_json()
+    db.session.query(Item).filter_by(id=id).update(
+        dict(title=body["title"], content=body["content"])
+    )
+    db.session.commit()
+    return "item updated"
+
+
+@app.route("/items/<id>", methods=["DELETE"])
+def delete_item(id):
+    db.session.query(Item).filter_by(id=id).delete()
+    db.session.commit()
+    return "item deleted"
