@@ -1,6 +1,4 @@
-from enum import unique
-import json
-from flask import Flask, requests, jsonify
+from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 import os
 
@@ -45,7 +43,7 @@ def get_items():
     return jsonify(items)
 
 
-@app.route("/items", methods=["POST"])
+@flask_app.route("/items", methods=["POST"])
 def create_item():
     body = request.get_json()
     db.session.add(Item(body["title"], body["content"]))
@@ -53,7 +51,7 @@ def create_item():
     return "item created"
 
 
-@app.route("/items/<id>", methods=["PUT"])
+@flask_app.route("/items/<id>", methods=["PUT"])
 def update_item(id):
     body = request.get_json()
     db.session.query(Item).filter_by(id=id).update(
@@ -63,7 +61,7 @@ def update_item(id):
     return "item updated"
 
 
-@app.route("/items/<id>", methods=["DELETE"])
+@flask_app.route("/items/<id>", methods=["DELETE"])
 def delete_item(id):
     db.session.query(Item).filter_by(id=id).delete()
     db.session.commit()
