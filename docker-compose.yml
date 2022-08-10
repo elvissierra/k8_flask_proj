@@ -8,7 +8,7 @@ services:
     ports:
       - "80:80"
     environment:
-      - DATABASE_URL=postgresql://postgresql:postgres@db:5432/postgres
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/postgres
     depends_on:
       - db
 
@@ -18,9 +18,9 @@ services:
     ports:
       - "5432:5432"
     environment:
-      - POSTGRES_PASSWORD= postgres_pass
-      - POSTGRES_USER= postgres_user
-      - POSTGRES_DB= postgres_db
+      - POSTGRES_PASSWORD= Urawizard*
+      - POSTGRES_USER= postgres
+      - POSTGRES_DB= postgres
     volumes:
       - pgdata:/var/lib/postgresql/data
 
