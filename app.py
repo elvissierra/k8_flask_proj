@@ -40,7 +40,7 @@ def get_items():
     items = []
     for item in db.session.query(Item).all():
         del item.__dict__["_sa_instance_state"]
-        item.append(item.__dict__)
+        items.append(item.__dict__)
     return jsonify(items)
 
 
